@@ -1,0 +1,134 @@
+{
+  "nodes": {
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781152676,
+        "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
+    "ironworks": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "node": "node",
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1781598549,
+        "narHash": "sha256-XkvPwubbSoqY1eRCQzsdX+ahsxH0hMB70F9wJdz8SBQ=",
+        "path": "/home/josie/2140-node-packaging",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/josie/2140-node-packaging",
+        "type": "path"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1780930886,
+        "narHash": "sha256-rppURzHviaQN131F+nLiLdGfcb0uCd9gGP0E5+iw9MI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8c3cede7ddc26bd659d2d383b5610efbd2c7a16e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1780930886,
+        "narHash": "sha256-rppURzHviaQN131F+nLiLdGfcb0uCd9gGP0E5+iw9MI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8c3cede7ddc26bd659d2d383b5610efbd2c7a16e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "node": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780667178,
+        "narHash": "sha256-lFVL+HtcvrZdmKvGVIIZR8aEkUZtfsuFz0ix95B7/XU=",
+        "ref": "master",
+        "rev": "6ca607f4ec5e4fe0551bf5d0f1a5c2df656703ad",
+        "revCount": 48986,
+        "type": "git",
+        "url": "https://github.com/2140-dev/bitcoin.git"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/2140-dev/bitcoin.git"
+      }
+    },
+    "node_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781598348,
+        "narHash": "sha256-um9qZc+HtJLQsp4cH8fOZ2giSXvOwJs03XUw0LxrXwk=",
+        "path": "/home/josie/2140-node",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/josie/2140-node",
+        "type": "path"
+      }
+    },
+    "root": {
+      "inputs": {
+        "disko": "disko",
+        "ironworks": "ironworks",
+        "nixpkgs": "nixpkgs_2",
+        "node": "node_2"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "ironworks",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780220602,
+        "narHash": "sha256-eynAfOmbmxJnkp7YewvCEbShNnnYJ9gLLqkzsYtBPeM=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "db947814a175b7ca6ded66e21383d938df01c227",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
