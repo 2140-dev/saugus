@@ -9,7 +9,7 @@ Current host inventory:
 
 ```text
 IPv4: 167.235.5.73
-IPv4 gateway: 167.235.5.65
+IPv4 gateway: 167.235.5.1
 IPv6: 2a01:4f8:2b01:b15::2/64
 IPv6 gateway: fe80::1
 CPU: AMD EPYC 9454P, 48 cores / 96 threads
@@ -21,7 +21,7 @@ Boot: UEFI
 Hetzner dedicated servers need the main IPv4 configured as a point-to-point
 `/32` address with the gateway as `Peer`, not DHCP or the announced subnet
 mask. `hosts/hydra/configuration.nix` pins the host network with
-`Address=167.235.5.73/32` and `Peer=167.235.5.65/32`.
+`Address=167.235.5.73/32` and `Peer=167.235.5.1/32`.
 
 ## 1. Boot Rescue
 

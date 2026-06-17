@@ -23,7 +23,7 @@
       matchConfig.Name = "en* eth*";
       networkConfig = {
         Gateway = [
-          "167.235.5.65"
+          "167.235.5.1"
           "fe80::1"
         ];
         IPv6AcceptRA = false;
@@ -31,7 +31,7 @@
       addresses = [
         {
           Address = "167.235.5.73/32";
-          Peer = "167.235.5.65/32";
+          Peer = "167.235.5.1/32";
         }
         {
           Address = "2a01:4f8:2b01:b15::2/64";
