@@ -1,0 +1,13 @@
+{
+  "branch": "harden-lock",
+  "ironworks": {
+    "repo": "2140-dev/ironworks",
+    "rev": "4557fc6f8cfe119404ca9418dd78ce5f2d9e1350"
+  },
+  "source": {
+    "repo": "2140-dev/bitcoin",
+    "rev": "6e7021efb96d020c7fa6980cee04a0a33666ce40"
+  },
+  "stage": "harden",
+  "updatedAt": "2026-06-17T10:48:14+00:00"
+}
