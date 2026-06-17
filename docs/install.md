@@ -1,8 +1,19 @@
 # Install
 
-Saugus installs onto the Hetzner AX162-R from Rescue using `nixos-anywhere`.
+Saugus installs onto the Hetzner Hydra host from Rescue using
+`nixos-anywhere`.
 This is destructive: `disko` will repartition the disks named in
 `hosts/hydra/disko.nix`.
+
+Current host inventory:
+
+```text
+IPv4: 167.235.5.73
+CPU: AMD EPYC 9454P, 48 cores / 96 threads
+RAM: 251 GiB
+Disk: 2 x 1.92 TB NVMe, mirrored ZFS rpool
+Boot: UEFI
+```
 
 ## 1. Boot Rescue
 
@@ -27,17 +38,14 @@ ssh root@<server-ip> '
 Expected hardware:
 
 ```text
-2 x 1.92 TB NVMe Datacenter
-2 x 3.84 TB NVMe Datacenter
+2 x 1.92 TB NVMe
 ```
 
 Update `hosts/hydra/disko.nix`:
 
 ```text
-REPLACE-WITH-1_92TB-NVME-0
-REPLACE-WITH-1_92TB-NVME-1
-REPLACE-WITH-3_84TB-NVME-0
-REPLACE-WITH-3_84TB-NVME-1
+nvme-Micron_7450_MTFDKCC1T9TFR_2314406EE2C7
+nvme-SOLIDIGM_SSDPF2KX019T1M_BTAX609304MQ1P9BGN
 ```
 
 ## 3. Install

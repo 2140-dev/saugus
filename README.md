@@ -7,19 +7,16 @@ Saugus consumes that library for the 2140 production deployment: Hydra,
 builders, benchmark workers, cache policy, lock branches, host inventory, and
 operational runbooks.
 
-The local bootstrap currently points at local paths:
-
-```text
-ironworks -> /home/josie/2140-node-packaging
-node      -> /home/josie/2140-node
-```
-
-After publishing the repositories, switch those inputs to:
+The deployment flake consumes the production repositories:
 
 ```text
 github:2140-dev/ironworks
-git+https://github.com/2140-dev/bitcoin.git?rev=<locked-source-sha>
+git+https://github.com/2140-dev/bitcoin.git?ref=master
 ```
+
+`staging-lock` and `release-lock/<version>` branches replace the source ref
+with exact source and Ironworks revisions before Hydra evaluates `forge` or
+`temper`.
 
 ## Evaluation
 
@@ -45,8 +42,8 @@ The initial Hydra host is exposed as:
 nixosConfigurations.hydra
 ```
 
-The host is installable through `nixos-anywhere` once the real Hetzner NVMe
-device IDs are written into `hosts/hydra/disko.nix`.
+The host is installable through `nixos-anywhere`; `hosts/hydra/disko.nix`
+currently targets the discovered Hetzner disks on `167.235.5.73`.
 
 See `docs/install.md` for the Rescue boot, disk inventory, install, and first
 login flow. See `docs/cache.md` for the current binary cache trust settings.

@@ -27,14 +27,17 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1781598549,
-        "narHash": "sha256-XkvPwubbSoqY1eRCQzsdX+ahsxH0hMB70F9wJdz8SBQ=",
-        "path": "/home/josie/2140-node-packaging",
-        "type": "path"
+        "lastModified": 1781598790,
+        "narHash": "sha256-oTCK7S5UuI9rVFhG3NC3Lg/jEyTf7gZ+L3rkblA5xJA=",
+        "owner": "2140-dev",
+        "repo": "ironworks",
+        "rev": "5d2756079345edfe6afa5d649a4bd7895ee2edb4",
+        "type": "github"
       },
       "original": {
-        "path": "/home/josie/2140-node-packaging",
-        "type": "path"
+        "owner": "2140-dev",
+        "repo": "ironworks",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -55,11 +58,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1780930886,
-        "narHash": "sha256-rppURzHviaQN131F+nLiLdGfcb0uCd9gGP0E5+iw9MI=",
+        "lastModified": 1781607440,
+        "narHash": "sha256-rxO+uc/KFbSJp+pgyXRuAX6QlG9hJdnt0BXpEQRXY+U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8c3cede7ddc26bd659d2d383b5610efbd2c7a16e",
+        "rev": "3e41b24abd260e8f71dbe2f5737d24122f972158",
         "type": "github"
       },
       "original": {
@@ -89,14 +92,18 @@
     "node_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1781598348,
-        "narHash": "sha256-um9qZc+HtJLQsp4cH8fOZ2giSXvOwJs03XUw0LxrXwk=",
-        "path": "/home/josie/2140-node",
-        "type": "path"
+        "lastModified": 1781262354,
+        "narHash": "sha256-fbjgxk3XOjAC68ZZ3ikivbfByQ/4QJ1BCvr3lrRSur0=",
+        "ref": "master",
+        "rev": "6e7021efb96d020c7fa6980cee04a0a33666ce40",
+        "revCount": 49007,
+        "type": "git",
+        "url": "https://github.com/2140-dev/bitcoin.git"
       },
       "original": {
-        "path": "/home/josie/2140-node",
-        "type": "path"
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/2140-dev/bitcoin.git"
       }
     },
     "root": {

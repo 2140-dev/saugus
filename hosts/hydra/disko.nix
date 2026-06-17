@@ -3,7 +3,7 @@
     disk = {
       system0 = {
         type = "disk";
-        device = "/dev/disk/by-id/REPLACE-WITH-1_92TB-NVME-0";
+        device = "/dev/disk/by-id/nvme-Micron_7450_MTFDKCC1T9TFR_2314406EE2C7";
         content = {
           type = "gpt";
           partitions = {
@@ -34,7 +34,7 @@
 
       system1 = {
         type = "disk";
-        device = "/dev/disk/by-id/REPLACE-WITH-1_92TB-NVME-1";
+        device = "/dev/disk/by-id/nvme-SOLIDIGM_SSDPF2KX019T1M_BTAX609304MQ1P9BGN";
         content = {
           type = "gpt";
           partitions.zfs = {
@@ -47,35 +47,6 @@
         };
       };
 
-      store0 = {
-        type = "disk";
-        device = "/dev/disk/by-id/REPLACE-WITH-3_84TB-NVME-0";
-        content = {
-          type = "gpt";
-          partitions.zfs = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "storepool";
-            };
-          };
-        };
-      };
-
-      store1 = {
-        type = "disk";
-        device = "/dev/disk/by-id/REPLACE-WITH-3_84TB-NVME-1";
-        content = {
-          type = "gpt";
-          partitions.zfs = {
-            size = "100%";
-            content = {
-              type = "zfs";
-              pool = "storepool";
-            };
-          };
-        };
-      };
     };
 
     zpool = {
@@ -107,6 +78,21 @@
             mountpoint = "/";
             options.mountpoint = "legacy";
           };
+          "local/nix" = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+            options.mountpoint = "legacy";
+          };
+          "local/build" = {
+            type = "zfs_fs";
+            mountpoint = "/build";
+            options.mountpoint = "legacy";
+          };
+          "local/hydra-cache" = {
+            type = "zfs_fs";
+            mountpoint = "/var/cache/hydra";
+            options.mountpoint = "legacy";
+          };
 
           "safe" = {
             type = "zfs_fs";
@@ -136,40 +122,6 @@
           "safe/hydra" = {
             type = "zfs_fs";
             mountpoint = "/var/lib/hydra";
-            options.mountpoint = "legacy";
-          };
-        };
-      };
-
-      storepool = {
-        type = "zpool";
-        mode = "mirror";
-        rootFsOptions = {
-          compression = "zstd";
-          atime = "off";
-          xattr = "sa";
-          acltype = "posixacl";
-          mountpoint = "none";
-          canmount = "off";
-        };
-        options = {
-          ashift = "12";
-          autotrim = "on";
-        };
-        datasets = {
-          "nix" = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options.mountpoint = "legacy";
-          };
-          "build" = {
-            type = "zfs_fs";
-            mountpoint = "/build";
-            options.mountpoint = "legacy";
-          };
-          "hydra-cache" = {
-            type = "zfs_fs";
-            mountpoint = "/var/cache/hydra";
             options.mountpoint = "legacy";
           };
         };
