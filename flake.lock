@@ -37,6 +37,7 @@
       "original": {
         "owner": "2140-dev",
         "repo": "ironworks",
+        "rev": "4557fc6f8cfe119404ca9418dd78ce5f2d9e1350",
         "type": "github"
       }
     },
@@ -94,14 +95,14 @@
       "locked": {
         "lastModified": 1781262354,
         "narHash": "sha256-fbjgxk3XOjAC68ZZ3ikivbfByQ/4QJ1BCvr3lrRSur0=",
-        "ref": "master",
+        "ref": "refs/heads/master",
         "rev": "6e7021efb96d020c7fa6980cee04a0a33666ce40",
         "revCount": 49007,
         "type": "git",
         "url": "https://github.com/2140-dev/bitcoin.git"
       },
       "original": {
-        "ref": "master",
+        "rev": "6e7021efb96d020c7fa6980cee04a0a33666ce40",
         "type": "git",
         "url": "https://github.com/2140-dev/bitcoin.git"
       }
