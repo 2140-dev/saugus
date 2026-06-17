@@ -100,17 +100,39 @@ def metadata(args, stage, branch):
     return data
 
 
-def update_lock(args, stage, branch, metadata_path):
+def write_hydra_stage(stage, jobset, dry_run):
+    write_json(
+        pathlib.Path("locks/hydra-stage.json"),
+        {
+            "stage": stage,
+            "jobset": jobset,
+        },
+        dry_run,
+    )
+
+
+def update_lock(args, metadata_stage, branch, metadata_path, hydra_stage, hydra_jobset):
     if not args.no_switch:
         run(["git", "switch", "-C", branch], args.dry_run)
 
     update_flake_inputs(args, args.dry_run)
     run(["nix", "flake", "lock"], args.dry_run)
-    write_json(metadata_path, metadata(args, stage, branch), args.dry_run)
-    run(["git", "add", "flake.nix", "flake.lock", str(metadata_path)], args.dry_run)
+    write_json(metadata_path, metadata(args, metadata_stage, branch), args.dry_run)
+    write_hydra_stage(hydra_stage, hydra_jobset, args.dry_run)
+    run(
+        [
+            "git",
+            "add",
+            "flake.nix",
+            "flake.lock",
+            str(metadata_path),
+            "locks/hydra-stage.json",
+        ],
+        args.dry_run,
+    )
 
     if not args.no_commit:
-        run(["git", "commit", "-m", f"Pin {stage} lock inputs"], args.dry_run)
+        run(["git", "commit", "-m", f"Pin {metadata_stage} lock inputs"], args.dry_run)
 
     if args.push:
         run(["git", "push", "-u", "origin", branch], args.dry_run)
@@ -135,6 +157,9 @@ def parser():
     staging = subparsers.add_parser("staging")
     staging.add_argument("--branch", default="staging-lock")
 
+    harden = subparsers.add_parser("harden")
+    harden.add_argument("--branch", default="harden-lock")
+
     release = subparsers.add_parser("release")
     release.add_argument("--version", required=True)
     release.add_argument("--branch")
@@ -146,7 +171,25 @@ def main():
     args = parser().parse_args()
 
     if args.command == "staging":
-        update_lock(args, "staging", args.branch, pathlib.Path("locks/staging.json"))
+        update_lock(
+            args,
+            "staging",
+            args.branch,
+            pathlib.Path("locks/staging.json"),
+            "forge",
+            "staging",
+        )
+        return 0
+
+    if args.command == "harden":
+        update_lock(
+            args,
+            "harden",
+            args.branch,
+            pathlib.Path("locks/harden.json"),
+            "harden",
+            "scheduled",
+        )
         return 0
 
     if args.command == "release":
@@ -156,6 +199,8 @@ def main():
             "release",
             branch,
             pathlib.Path("locks/release") / f"{args.version}.json",
+            "temper",
+            "release",
         )
         return 0
 

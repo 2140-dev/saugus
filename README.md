@@ -27,8 +27,12 @@ nix eval .#hydraJobs.x86_64-linux --apply builtins.attrNames
 nix eval .#nixosConfigurations.hydra.config.services.hydra.hydraURL
 ```
 
-Current active jobsets are `correctness`, `staging`, `scheduled`, and
-`release`, which map to Ironworks `spark`, `forge`, `harden`, and `temper`.
+Saugus exports a stage-filtered `hydraJobs` tree for production Hydra. `master`
+defaults to `spark`/`correctness`; lock branches write `locks/hydra-stage.json`
+so `staging-lock` exposes `forge`/`staging`, `harden-lock` exposes
+`harden`/`scheduled`, and release lock branches expose `temper`/`release`. This
+keeps Hydra flake jobsets from duplicating the full Ironworks graph.
+
 The `scheduled` harden jobset is exported for observation while fixture-backed
 IBD, previous-release, and long-fuzz jobs are still being replaced. `stamp`
 remains visible through the Ironworks stage catalog but is not exported as an

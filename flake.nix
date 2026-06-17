@@ -77,10 +77,42 @@
           };
         };
 
+      hydraStageSelection =
+        let
+          stageFile = ./locks/hydra-stage.json;
+        in
+        if builtins.pathExists stageFile then
+          builtins.fromJSON (builtins.readFile stageFile)
+        else
+          {
+            stage = "spark";
+            jobset = "correctness";
+          };
+
+      hydraStageJobsetAttrs = {
+        spark = "correctness";
+        forge = "staging";
+        harden = "scheduled";
+        temper = "release";
+      };
+
+      selectedHydraJobset =
+        hydraStageSelection.jobset or hydraStageJobsetAttrs.${hydraStageSelection.stage};
+
+      selectHydraJobs =
+        project:
+        if builtins.hasAttr selectedHydraJobset project.hydraJobs then
+          {
+            ${selectedHydraJobset} = project.hydraJobs.${selectedHydraJobset};
+          }
+        else
+          throw "Saugus Hydra stage '${hydraStageSelection.stage}' selects missing jobset '${selectedHydraJobset}'";
+
       mkChecks =
         pkgs:
         let
           project = mkProject pkgs;
+          hydraJobs = selectHydraJobs project;
         in
         project.checks
         // {
@@ -100,6 +132,9 @@
                   staging > smoke.log
                 grep -q "staging-lock" smoke.log
                 grep -q "locks/staging.json" smoke.log
+                grep -q "locks/hydra-stage.json" smoke.log
+                grep -q '"stage": "forge"' smoke.log
+                grep -q '"jobset": "staging"' smoke.log
                 touch "$out"
               '';
 
@@ -111,6 +146,8 @@
                 canonicalStages = builtins.toJSON (builtins.attrNames ironworks.lib.stages);
                 canonicalStageNames = builtins.toJSON ironworks.lib.stageNames;
                 stageJobsets = builtins.toJSON (builtins.attrNames project.stageHydraJobs);
+                selectedHydraStage = hydraStageSelection.stage;
+                selectedHydraJobsets = builtins.toJSON (builtins.attrNames hydraJobs);
                 stageConfig = builtins.toJSON {
                   harden = project.meta.stages.harden.enable;
                   stamp = project.meta.stages.stamp.enable;
@@ -125,6 +162,8 @@
                 test "$canonicalStages" = '["forge","harden","spark","stamp","temper"]'
                 test "$canonicalStageNames" = "$canonicalStages"
                 test "$stageJobsets" = "$canonicalStages"
+                test "$selectedHydraStage" = 'spark'
+                test "$selectedHydraJobsets" = '["correctness"]'
                 test "$stageConfig" = '{"harden":true,"stamp":false}'
 
                 {
@@ -133,6 +172,8 @@
                   echo "canonicalStages=$canonicalStages"
                   echo "canonicalStageNames=$canonicalStageNames"
                   echo "stageJobsets=$stageJobsets"
+                  echo "selectedHydraStage=$selectedHydraStage"
+                  echo "selectedHydraJobsets=$selectedHydraJobsets"
                   echo "stageConfig=$stageConfig"
                 } > "$out"
               '';
@@ -143,7 +184,7 @@
 
       checks = forAllSystems mkChecks;
 
-      hydraJobs.x86_64-linux = (mkProject nixpkgs.legacyPackages.x86_64-linux).hydraJobs;
+      hydraJobs.x86_64-linux = selectHydraJobs (mkProject nixpkgs.legacyPackages.x86_64-linux);
 
       nixosConfigurations.hydra = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

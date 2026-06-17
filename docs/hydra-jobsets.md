@@ -28,7 +28,7 @@ Active jobsets:
 | --- | --- | --- | --- | --- |
 | `spark` | Flake | `github:2140-dev/saugus` | Optional Hydra mirror of Spark | 20 |
 | `forge` | Flake | `github:2140-dev/saugus/staging-lock` | Every promoted staging snapshot | 50 |
-| `harden` | Flake | `github:2140-dev/saugus/staging-lock` | Scheduled after forge-green snapshots | 20 |
+| `harden` | Flake | `github:2140-dev/saugus/harden-lock` | Scheduled after forge-green snapshots | 20 |
 | `temper` | Flake | `github:2140-dev/saugus/release-lock/<version>` | Every release candidate update | 20 |
 
 Expected outputs:
@@ -39,6 +39,17 @@ Expected outputs:
 | `forge` | `hydraJobs.x86_64-linux.staging` |
 | `harden` | `hydraJobs.x86_64-linux.scheduled` |
 | `temper` | `hydraJobs.x86_64-linux.release` |
+
+Hydra evaluates the whole `hydraJobs` tree for a flake jobset. Saugus prevents
+duplicate runs by filtering `hydraJobs` through `locks/hydra-stage.json` on each
+production branch:
+
+| Branch | Selector | Published jobset |
+| --- | --- | --- |
+| `master` | default `spark` | `correctness` |
+| `staging-lock` | `forge` | `staging` |
+| `harden-lock` | `harden` | `scheduled` |
+| `release-lock/<version>` | `temper` | `release` |
 
 Planned stage handles:
 

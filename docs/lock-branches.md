@@ -7,6 +7,7 @@ Each lock branch records:
 - source repository and commit
 - Ironworks repository and commit
 - nixpkgs input from `flake.lock`
+- selected Hydra stage in `locks/hydra-stage.json`
 - UTC update timestamp
 
 ## Staging
@@ -21,7 +22,8 @@ nix run .#update-lock -- \
 ```
 
 This updates `flake.nix`, updates `flake.lock`, writes `locks/staging.json`,
-commits the result, and leaves the branch named `staging-lock`.
+writes `locks/hydra-stage.json` with `forge`/`staging`, commits the result, and
+leaves the branch named `staging-lock`.
 
 Dry-run:
 
@@ -32,6 +34,22 @@ nix run .#update-lock -- \
   --dry-run \
   staging
 ```
+
+## Harden
+
+After a staging snapshot is ready for scheduled validation, update the Saugus
+harden lock:
+
+```sh
+nix run .#update-lock -- \
+  --source-rev <source-sha> \
+  --ironworks-rev <ironworks-sha> \
+  harden
+```
+
+This writes `locks/harden.json`, writes `locks/hydra-stage.json` with
+`harden`/`scheduled`, commits the result, and leaves the branch named
+`harden-lock`.
 
 ## Release
 
@@ -45,7 +63,8 @@ nix run .#update-lock -- \
 ```
 
 The default branch is `release-lock/<version>` and the metadata file is
-`locks/release/<version>.json`.
+`locks/release/<version>.json`. Release lock branches write
+`locks/hydra-stage.json` with `temper`/`release`.
 
 ## Push
 
