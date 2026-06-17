@@ -27,12 +27,12 @@ nix eval .#hydraJobs.x86_64-linux --apply builtins.attrNames
 nix eval .#nixosConfigurations.hydra.config.services.hydra.hydraURL
 ```
 
-Current active jobsets are `correctness`, `staging`, and `release`, which map
-to Ironworks `spark`, `forge`, and `temper`. `harden` is implemented in
-Ironworks but remains disabled in Saugus with `ironworks.lib.mkStageConfig`
-until fixture storage and scheduling policy are approved. `stamp` remains
-visible through the Ironworks stage catalog but is not exported as an active
-jobset yet.
+Current active jobsets are `correctness`, `staging`, `scheduled`, and
+`release`, which map to Ironworks `spark`, `forge`, `harden`, and `temper`.
+The `scheduled` harden jobset is exported for observation while fixture-backed
+IBD, previous-release, and long-fuzz jobs are still being replaced. `stamp`
+remains visible through the Ironworks stage catalog but is not exported as an
+active jobset yet.
 
 ## Host
 

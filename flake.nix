@@ -69,8 +69,8 @@
             projectId = "2140-node";
             deploymentId = "saugus";
             stages = ironworks.lib.mkStageConfig {
+              enable = [ "harden" ];
               disable = [
-                "harden"
                 "stamp"
               ];
             };
@@ -117,14 +117,15 @@
                 };
               }
               ''
-                test "$activeJobsets" = '["correctness","release","staging"]'
+                test "$activeJobsets" = '["correctness","release","scheduled","staging"]'
                 case "$activeChecks" in
-                  *scheduled*) exit 1 ;;
+                  *scheduled*) ;;
+                  *) exit 1 ;;
                 esac
                 test "$canonicalStages" = '["forge","harden","spark","stamp","temper"]'
                 test "$canonicalStageNames" = "$canonicalStages"
                 test "$stageJobsets" = "$canonicalStages"
-                test "$stageConfig" = '{"harden":false,"stamp":false}'
+                test "$stageConfig" = '{"harden":true,"stamp":false}'
 
                 {
                   echo "activeJobsets=$activeJobsets"

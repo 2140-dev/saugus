@@ -22,12 +22,13 @@ Project fields:
 Hydra flake jobsets should point at Saugus, because Saugus pins the source
 tree, Ironworks, and nixpkgs in `flake.lock`.
 
-Initial active jobsets:
+Active jobsets:
 
 | Identifier | Type | Flake URI | Scheduling | Keep |
 | --- | --- | --- | --- | --- |
 | `spark` | Flake | `github:2140-dev/saugus` | Optional Hydra mirror of Spark | 20 |
 | `forge` | Flake | `github:2140-dev/saugus/staging-lock` | Every promoted staging snapshot | 50 |
+| `harden` | Flake | `github:2140-dev/saugus/staging-lock` | Scheduled after forge-green snapshots | 20 |
 | `temper` | Flake | `github:2140-dev/saugus/release-lock/<version>` | Every release candidate update | 20 |
 
 Expected outputs:
@@ -36,13 +37,13 @@ Expected outputs:
 | --- | --- |
 | `spark` | `hydraJobs.x86_64-linux.correctness` |
 | `forge` | `hydraJobs.x86_64-linux.staging` |
+| `harden` | `hydraJobs.x86_64-linux.scheduled` |
 | `temper` | `hydraJobs.x86_64-linux.release` |
 
 Planned stage handles:
 
 | Stage | Flake output | Condition |
 | --- | --- | --- |
-| `harden` | `hydraJobs.x86_64-linux.scheduled` | Add after Saugus enables the stage and real fixture/corpus policies are approved |
 | `stamp` | `hydraJobs.x86_64-linux.stamp` | Add after release publication jobs exist and Saugus enables the stage |
 
 The Ironworks harden output currently contains these handles:
@@ -53,10 +54,12 @@ ibd-small
 previous-releases
 fuzz-corpus
 benchmark-artifact
+benchmark-report
 ```
 
-Only enable the Saugus `harden` jobset after the storage-backed fixtures and
-schedule are decided; the current IBD, previous-release, and fuzz-corpus jobs
-are metadata scaffolds.
+The Saugus `harden` jobset is enabled so Hydra can evaluate the scheduled
+surface now. The current IBD, previous-release, and fuzz-corpus jobs are still
+metadata scaffolds until storage-backed fixtures and the final schedule are
+approved.
 
 Do not let production jobsets chase mutable source refs directly.
