@@ -142,7 +142,7 @@
 
       checks = forAllSystems mkChecks;
 
-      hydraJobs = forAllSystems (pkgs: (mkProject pkgs).hydraJobs);
+      hydraJobs.x86_64-linux = (mkProject nixpkgs.legacyPackages.x86_64-linux).hydraJobs;
 
       nixosConfigurations.hydra = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
