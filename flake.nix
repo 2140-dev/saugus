@@ -14,7 +14,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ironworks.url = "github:2140-dev/ironworks/4557fc6f8cfe119404ca9418dd78ce5f2d9e1350";
+    ironworks.url = "github:2140-dev/ironworks/cde069b7f24b4131603d43e925b632426d2f8031";
     node = {
       url = "git+https://github.com/2140-dev/bitcoin.git?rev=6e7021efb96d020c7fa6980cee04a0a33666ce40";
       flake = false;

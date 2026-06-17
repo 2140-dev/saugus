@@ -2,12 +2,12 @@
   "branch": "staging-lock",
   "ironworks": {
     "repo": "2140-dev/ironworks",
-    "rev": "4557fc6f8cfe119404ca9418dd78ce5f2d9e1350"
+    "rev": "cde069b7f24b4131603d43e925b632426d2f8031"
   },
   "source": {
     "repo": "2140-dev/bitcoin",
     "rev": "6e7021efb96d020c7fa6980cee04a0a33666ce40"
   },
   "stage": "staging",
-  "updatedAt": "2026-06-17T10:47:43+00:00"
+  "updatedAt": "2026-06-17T13:26:40+00:00"
 }

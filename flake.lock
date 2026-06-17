@@ -27,17 +27,17 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1781692755,
-        "narHash": "sha256-rfC5zZVsBvVt3VbZvrPjqL/HnkaJTn8uxVf8rcoC9dM=",
+        "lastModified": 1781702692,
+        "narHash": "sha256-PSTDgQtoZ8eFlIElo93tSxAsRHYAVodpuD6p7RE33K4=",
         "owner": "2140-dev",
         "repo": "ironworks",
-        "rev": "4557fc6f8cfe119404ca9418dd78ce5f2d9e1350",
+        "rev": "cde069b7f24b4131603d43e925b632426d2f8031",
         "type": "github"
       },
       "original": {
         "owner": "2140-dev",
         "repo": "ironworks",
-        "rev": "4557fc6f8cfe119404ca9418dd78ce5f2d9e1350",
+        "rev": "cde069b7f24b4131603d43e925b632426d2f8031",
         "type": "github"
       }
     },
